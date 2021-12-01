@@ -16,9 +16,20 @@ namespace Lab16pat3
             string jsonString;
             jsonString = File.ReadAllText("person1.json");
             Console.WriteLine(jsonString);
-            string jsonString1 = "[{\"Код товара\": 1, \"Вид\": \"Цветы\",\"Цена\": 500,\"Наименование\": \"Фиалка\"},{\"Код товара\": 2,\"Вид\": \"Цветы\",\"Цена\": 600,\"Наименование\": \"Сирень\"},{\"Код товара\": 3,\"Вид\":\"Цветы\",\"Цена\": 700,\"Наименование\": \"Ромашка\"},{\"Код товара\": 4,\"Вид\": \"Цветы\",\"Цена\": 800,\"Наименование\": \"Роза\"},{\"Код товара\": 5,\"Вид\": \"Цветы\",\"Цена\": 900,\"Наименование\": \"Орхидея\"}]";
+            //string jsonString1 = "[{\"Код товара\": 1, \"Вид\": \"Цветы\",\"Цена\": 500,\"Наименование\": \"Фиалка\"},{\"Код товара\": 2,\"Вид\": \"Цветы\",\"Цена\": 600,\"Наименование\": \"Сирень\"},{\"Код товара\": 3,\"Вид\":\"Цветы\",\"Цена\": 700,\"Наименование\": \"Ромашка\"},{\"Код товара\": 4,\"Вид\": \"Цветы\",\"Цена\": 800,\"Наименование\": \"Роза\"},{\"Код товара\": 5,\"Вид\": \"Цветы\",\"Цена\": 900,\"Наименование\": \"Орхидея\"}]";
             
-            Product[] product = JsonSerializer.Deserialize<Product[]>(jsonString1);
+            Product[] products = JsonSerializer.Deserialize<Product[]>(jsonString);
+            decimal maxPrice = 0;
+            string name = "";
+            foreach (var prod in products)
+            {
+                if (prod.Price > maxPrice)
+                {
+                    maxPrice = prod.Price;
+                    name = prod.Name;
+                }
+            }
+            Console.WriteLine($"Самый дорогой продукт", (name)); 
             Console.ReadKey();
         }
     }
@@ -32,6 +43,8 @@ namespace Lab16pat3
         public decimal Price { get; set; }
         [JsonPropertyName("Наименование")]
         public string Name { get; set; }
+
+                
     }
 }
 
